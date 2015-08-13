@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+  <head>
+    <title>Run Google Routes search</title>
+  </head>
+
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  <body>
+
+    <h1>
+      Run Routes Crawl
+    </h1>
+
+    <p>
+      This should run based off of packaged routes csv
+      <button onclick="runOperation()">
+        Run Operation
+      </button>
+    </p>
+
+
+    <div id="statusDiv">
+      The current status is: <span id="status">Not run yet</span>.
+    </div>
+
+  </body>
+
+  <script type="text/javascript">
+    
+    function runOperation() {
+      animateStatus();
+    };
+
+    function animateStatus() {
+      $('#status').text("Running operation");
+      var count = 1
+      setInterval(function () {
+        var dots = Array(count).join(".");
+        if (count > 3) {
+          count = 1
+        } else {
+          count += 1
+        }
+        $('#status').text("Running operation" + dots)
+      }, 500)
+    };
+
+  </script>
+
+</html>
