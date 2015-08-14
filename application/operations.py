@@ -9,7 +9,7 @@ import pandas as pd
 def runRoutes(fileName):
 
     zoneTable = pd.read_csv('application/static/' + fileName)
-    print zoneTable
+
     urlDict = {}
     outputDict = {}
     rawOutputDict = {}
@@ -78,6 +78,7 @@ def runRoutes(fileName):
 
 
     if not failed:
+        print 'it did not fail'
         toPandas = [i for i in outputDict.values()]
         headers = ['Origin', 'Destination', 'ShortName', 'TimeRetr', 'Route', 'Dist', 'CurrentTime', 'TimeRange','url']
         travelData = pd.DataFrame(toPandas, columns= headers)
@@ -97,12 +98,12 @@ def runRoutes(fileName):
             return outVal
 
 
-
+        print 'pre producttime'
         travelData['nDist'] = (travelData.Dist.apply(lambda x: x[0:4])).astype(float)
         travelData['nTime'] = (travelData.CurrentTime.apply(lambda x: produceTime(x)))
-
+        print 'pre sort'
         travelData = travelData.sort(["Origin", "Destination"])
-
+        print 'it just was sorted'
 
         travelData.to_csv('output.csv', sep=',', encoding='utf-8')
 
