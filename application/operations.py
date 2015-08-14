@@ -27,7 +27,7 @@ def runRoutes(fileName):
 
 
     for row in zoneTable.iterrows():
-        print 'we are in one of the rows'
+        
         vals = row[1]
         urlKey = (vals[origin], vals[dest], vals['ShortName']) ## why are they key values being constructed like this? seems dangerous
 
@@ -41,7 +41,7 @@ def runRoutes(fileName):
 
 
     for key, route in urlDict.iteritems():
-        print 'we are in one of the routes, of key', key
+        
         # this method returns Google LiteMaps query result (no info about browser is why)
         # response = urlopen(route).read()
         response = requests.get(route).text
