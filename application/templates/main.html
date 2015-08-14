@@ -84,7 +84,12 @@
       $.ajax({
         url: 'getoutput'
       }).done(function(response) {
-        console.log(response);
+        var a = document.createElement('a');
+        a.href = 'data:attachment/csv,' + response;
+        a.target = '_blank';
+        a.download = 'routesOutput.csv';
+        document.body.appendChild(a);
+        a.click();
       });
     }
 
