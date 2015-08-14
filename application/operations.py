@@ -9,7 +9,7 @@ import pandas as pd
 def runRoutes(fileName):
 
     zoneTable = pd.read_csv('application/static/' + fileName)
-
+    print zoneTable
     urlDict = {}
     outputDict = {}
     rawOutputDict = {}
