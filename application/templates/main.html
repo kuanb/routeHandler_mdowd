@@ -14,16 +14,19 @@
     </h1>
 
     <p>
+      You'll use source file: <input id="fileName" value="short.csv" placeholder="Enter filename"></input>.
+    </p>
+
+    <p>
       This should run based off of packaged routes csv
       <button onclick="runOperation()">
         Run Operation
       </button>
     </p>
 
-
-    <div id="statusDiv">
+    <p>
       The current status is: <span id="status">Not run yet</span>.
-    </div>
+    </p>
 
   </body>
 
@@ -31,6 +34,13 @@
     
     function runOperation() {
       animateStatus();
+      var url = 'run/' + $('#fileName').val();
+      console.log(url);
+      $.ajax({
+        url: url
+      }).done(function(response) {
+        console.log(response);
+      });
     };
 
     function animateStatus() {
