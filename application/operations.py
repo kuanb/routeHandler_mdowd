@@ -26,7 +26,7 @@ def runRoutes(fileName):
 
 
     for row in zoneTable.iterrows():
-
+        print 'we are in one of the rows'
         vals = row[1]
         urlKey = (vals[origin], vals[dest], vals['ShortName']) ## why are they key values being constructed like this? seems dangerous
 
@@ -40,7 +40,7 @@ def runRoutes(fileName):
 
 
     for key, route in urlDict.iteritems():
-        
+        print 'we are in one of the routes, of key', key
         # this method returns Google LiteMaps query result (no info about browser is why)
         # response = urlopen(route).read()
         response = requests.get(route).text
@@ -78,7 +78,7 @@ def runRoutes(fileName):
 
 
     if not failed:
-        print 'it did not fail'
+        
         toPandas = [i for i in outputDict.values()]
         headers = ['Origin', 'Destination', 'ShortName', 'TimeRetr', 'Route', 'Dist', 'CurrentTime', 'TimeRange','url']
         travelData = pd.DataFrame(toPandas, columns= headers)
@@ -98,12 +98,11 @@ def runRoutes(fileName):
             return outVal
 
 
-        print 'pre producttime'
+        
         travelData['nDist'] = (travelData.Dist.apply(lambda x: x[0:4])).astype(float)
         travelData['nTime'] = (travelData.CurrentTime.apply(lambda x: produceTime(x)))
-        print 'pre sort'
+        
         travelData = travelData.sort(["Origin", "Destination"])
-        print 'it just was sorted'
 
         travelData.to_csv('output.csv', sep=',', encoding='utf-8')
 
