@@ -1,3 +1,4 @@
+*.pyc
 fullRoutes.csv
 original.py
 output.csv

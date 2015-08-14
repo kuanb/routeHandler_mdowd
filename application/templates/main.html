@@ -15,6 +15,7 @@
 
     <p>
       You'll use source file: <input id="fileName" value="short.csv" placeholder="Enter filename"></input>.
+      <button onclick="changeFull()">Use full version</button>
     </p>
 
     <p>
@@ -28,25 +29,47 @@
       The current status is: <span id="status">Not run yet</span>.
     </p>
 
+    <div id="downloadButton" hidden>
+      <h4>Congrats, everything finished</h4>
+      <button onclick="retrieveDone()">Download the resulting csv</button>
+    </div>
+
+    <div id="failed" hidden>
+      <h4>There was an internal error... Refresh</h4>
+    </div>
+
   </body>
 
   <script type="text/javascript">
     
+    var intervalGlobal = null;
+
+    function changeFull() {
+      $('#fileName').val('fullRoutes.csv');
+    };
+
     function runOperation() {
       animateStatus();
       var url = 'run/' + $('#fileName').val();
-      console.log(url);
       $.ajax({
         url: url
       }).done(function(response) {
         console.log(response);
+        clearInterval(intervalGlobal)
+        $('#status').text("Completed operation");
+
+        if (response.result) {
+          $('#downloadButton').show()
+        } else {
+          $('#failed').show()
+        }
       });
     };
 
     function animateStatus() {
       $('#status').text("Running operation");
       var count = 1
-      setInterval(function () {
+      intervalGlobal = setInterval(function () {
         var dots = Array(count).join(".");
         if (count > 3) {
           count = 1
@@ -54,8 +77,16 @@
           count += 1
         }
         $('#status').text("Running operation" + dots)
-      }, 500)
+      }, 500);
     };
+
+    function retrieveDone() {
+      $.ajax({
+        url: 'getoutput'
+      }).done(function(response) {
+        console.log(response);
+      });
+    }
 
   </script>
 

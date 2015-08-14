@@ -7,14 +7,9 @@ import pandas as pd
 
 
 
-def runTest(fileName):
-    print fileName
-    return 'this is result' + fileName
-
-
 def runRoutes(fileName):
 
-    zoneTable = pd.read_csv(fileName)
+    zoneTable = pd.read_csv('application/static/' + fileName)
 
     urlDict = {}
     outputDict = {}
@@ -26,6 +21,8 @@ def runRoutes(fileName):
     origin = 'Origin' 
     dest = 'Destination'
     theUrl = 'WestUrl' 
+
+    failed = False
 
 
 
@@ -109,3 +106,8 @@ def runRoutes(fileName):
 
 
         travelData.to_csv('output.csv', sep=',', encoding='utf-8')
+
+        return True
+
+    else:
+        return False
