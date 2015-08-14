@@ -1,5 +1,4 @@
 from urllib2 import urlopen
-import requests
 import json
 import datetime
 import time
