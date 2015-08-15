@@ -10,7 +10,7 @@ import pandas as pd
 def runRoutes(fileName):
 
     zoneTable = pd.read_csv('application/static/' + fileName)
-    print 'foo'
+    print 'fuck'
 
     urlDict = {}
     outputDict = {}
